@@ -6,7 +6,7 @@ metadata:
 spec:
   selector: 
     matchLabels: 
-      app: poi
+      app: trips
   template:
     metadata:
       labels: 
@@ -37,8 +37,6 @@ spec:
           value: "sqlserverkua3387.database.windows.net"
         - name: SQL_DBNAME
           value: "mydrivingDB"
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Local"
 
 ---
 apiVersion: v1
@@ -48,9 +46,9 @@ metadata:
   namespace: insurance-api
 spec:  
   selector:
-    app: poi
+    app: trips
   ports:
   - protocol: TCP
-    port: 8088
+    port: 8081
     targetPort: 80
   type: LoadBalancer
