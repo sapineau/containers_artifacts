@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Trips
+  name: trips
   namespace: insurance-api 
 spec:
   selector: 
@@ -17,14 +17,11 @@ spec:
         image: registrykua3387.azurecr.io/trips
         imagePullPolicy: IfNotPresent
         ports:
-        #- containerPort: 80
+        - containerPort: 80
         resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
           limits:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 1000m
+            memory: 2000Mi
         env:
         - name: SQL_USER
           valueFrom:
@@ -42,3 +39,18 @@ spec:
           value: "mydrivingDB"
         - name: ASPNETCORE_ENVIRONMENT
           value: "Local"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trips-service
+  namespace: insurance-api
+spec:  
+  selector:
+    app: poi
+  ports:
+  - protocol: TCP
+    port: 8088
+    targetPort: 80
+  type: LoadBalancer
