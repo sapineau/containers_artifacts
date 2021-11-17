@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: user-java
+  namespace: 
+spec:
+  containers:
+    - name: user-java
+      image: registrykua3387.azurecr.io/user-java
+      imagePullPolicy: IfNotPresent

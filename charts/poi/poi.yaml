@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: poi
+  namespace: 
+spec:
+  containers:
+    - name: poi
+      image: registrykua3387.azurecr.io/poi
+      imagePullPolicy: IfNotPresent
