@@ -19,11 +19,7 @@ spec:
         image: registrykua3387.azurecr.io/tripviewer
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 2000Mi
+        - containerPort: 8080
         env:
         - name: USERPROFILE_API_ENDPOINT
           value: "http://userprofile-service:80"
@@ -41,5 +37,5 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetPort: 80
+    targetPort: 8080
   type: LoadBalancer
