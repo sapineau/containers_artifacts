@@ -1,6 +1,8 @@
+# What have been done
+
 | Name                    | Required | Type        | Default Value  | Description                                       |
 |-------------------------|----------|-------------|----------------|---------------------------------------------------|
-| WEB_SERVER_BASE_URI     | No       | ENV         | http://0.0.0.0 | The url that API service web host will listen on. | => ??
+| WEB_SERVER_BASE_URI     | No       | ENV         | <http://0.0.0.0> | The url that API service web host will listen on. | => ??
 | WEB_PORT                | No       | ENV         | 80             | The port that the API service will listen on.     | => no
 | CONFIG_FILES_PATH       | No       | ENV         | /secrets       | The base path for file based variables.           | => no
 | SQL_USER                | Yes      | ENV or File | sqladmin       | The username for the SQL Server database.         | => ok via secrets
