@@ -51,6 +51,6 @@ spec:
     app: trips
   ports:
   - protocol: TCP
-    port: 8081
+    port: 8088
     targetPort: 80
   type: LoadBalancer
