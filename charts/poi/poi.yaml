@@ -2,9 +2,23 @@ apiVersion: v1
 kind: Deployment
 metadata:
   name: poi
-  namespace: 
+  namespace: insurance
+  labels:
+    app: poi
+
 spec:
-  containers:
-    - name: poi
-      image: registrykua3387.azurecr.io/poi
-      imagePullPolicy: IfNotPresent
+  selector: 
+    matchLabels: 
+      app: poi
+  template:
+    metadata:
+      labels: 
+        app: poi
+    spec:
+      containers:
+      - name: poi
+        image: registrykua3387.azurecr.io/poi
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        
