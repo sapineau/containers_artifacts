@@ -1,0 +1,57 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: api-dev-role
+  namespace: insurance-api
+#rules:
+#- apiGroups: ["", "extensions", "apps"]
+#  resources: ["*"]
+#  verbs: ["*"]
+#- apiGroups: ["batch"]
+#  resources:
+#  - jobs
+#  - cronjobs
+#  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: api-dev-role-binding
+  namespace: insurance-api
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: api-dev-role
+subjects:
+- kind: Group
+  namespace: insurance-api
+#  name: groupObjectId
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-dev-role
+  namespace: insurance-api
+#rules:
+#- apiGroups: ["", "extensions", "apps"]
+#  resources: ["*"]
+#  verbs: ["*"]
+#- apiGroups: ["batch"]
+#  resources:
+#  - jobs
+#  - cronjobs
+#  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-dev-role-binding
+  namespace: insurance-api
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: web-dev-role
+subjects:
+- kind: Group
+  namespace: insurance-api
+#  name: groupObject
