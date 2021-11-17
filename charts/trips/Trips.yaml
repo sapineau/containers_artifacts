@@ -51,6 +51,7 @@ spec:
     app: trips
   ports:
   - protocol: TCP
-    port: 8088
-    targetPort: 80
-  type: LoadBalancer
+    port: 80
+    #port: 8088
+    #targetPort: 80
+  type: ClusterIP
