@@ -21,12 +21,9 @@ spec:
         ports:
         - containerPort: 80
         resources:
-          requests:
-            cpu: 50m
-            memory: 50Mi
           limits:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 1000m
+            memory: 2000Mi
         env:
         - name: SQL_USER
           valueFrom:
