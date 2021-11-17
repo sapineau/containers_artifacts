@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Deployment
 metadata:
-  name: user-java
+  name: userprofile
   namespace: insurance-api
 spec:
   containers:
-    - name: user-java
-      image: registrykua3387.azurecr.io/user-java
+    - name: userprofile
+      image: registrykua3387.azurecr.io/userprofile
       imagePullPolicy: IfNotPresent

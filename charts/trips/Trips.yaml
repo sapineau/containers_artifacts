@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Deployment
 metadata:
   name: Trips
-  namespace: 
+  namespace: insurance-api 
 spec:
   containers:
     - name: trips
