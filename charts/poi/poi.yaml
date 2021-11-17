@@ -2,10 +2,9 @@ apiVersion: v1
 kind: Deployment
 metadata:
   name: poi
-  namespace: insurance
+  namespace: insurance-api
   labels:
     app: poi
-
 spec:
   selector: 
     matchLabels: 
@@ -21,4 +20,27 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-        
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 200Mi
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          value: "sqlserverkua3387.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Local"
