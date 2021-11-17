@@ -4,7 +4,41 @@ metadata:
   name: Trips
   namespace: insurance-api 
 spec:
-  containers:
-    - name: trips
-      image: registrykua3387.azurecr.io/trips
-      imagePullPolicy: IfNotPresent
+  selector: 
+    matchLabels: 
+      app: poi
+  template:
+    metadata:
+      labels: 
+        app: trips
+    spec:
+      containers:
+      - name: trips
+        image: registrykua3387.azurecr.io/trips
+        imagePullPolicy: IfNotPresent
+        ports:
+        #- containerPort: 80
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 200Mi
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          value: "sqlserverkua3387.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Local"
