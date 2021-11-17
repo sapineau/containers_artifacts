@@ -37,6 +37,11 @@ spec:
     app: tripviewer
   ports:
   - protocol: TCP
+<<<<<<< HEAD
     port: 80
     targetPort: 80
+=======
+    port: 8080
+    targetPort: 8080
+>>>>>>> 8aa142232ca4590357888d95ce642d1583481a1b
   type: LoadBalancer
