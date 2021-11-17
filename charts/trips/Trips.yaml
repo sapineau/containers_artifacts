@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: trips
   namespace: insurance-api 
+  labels:
+    app: trips
 spec:
   selector: 
     matchLabels: 
