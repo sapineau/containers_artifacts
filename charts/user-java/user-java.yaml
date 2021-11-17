@@ -3,8 +3,56 @@ kind: Deployment
 metadata:
   name: user-java
   namespace: insurance-api
+  labels:
+    app: user-java
 spec:
-  containers:
-    - name: user-java
-      image: registrykua3387.azurecr.io/user-java
-      imagePullPolicy: IfNotPresent
+  selector: 
+    matchLabels: 
+      app: user-java
+  template:
+    metadata:
+      labels: 
+        app: user-java
+    spec:
+      containers:
+      - name: user-java
+        image: registrykua3387.azurecr.io/user-java
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 200Mi
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          value: "sqlserverkua3387.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java-service
+  namespace: insurance-api
+spec:  
+  selector:
+    app: user-java
+  ports:
+  - protocol: TCP
+    port: 8083
+    targetPort: 80
+  type: LoadBalancer

@@ -3,8 +3,56 @@ kind: Deployment
 metadata:
   name: userprofile
   namespace: insurance-api
+  labels:
+    app: userprofile
 spec:
-  containers:
-    - name: userprofile
-      image: registrykua3387.azurecr.io/userprofile
-      imagePullPolicy: IfNotPresent
+  selector: 
+    matchLabels: 
+      app: userprofile
+  template:
+    metadata:
+      labels: 
+        app: userprofile
+    spec:
+      containers:
+      - name: userprofile
+        image: registrykua3387.azurecr.io/userprofile
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 100m
+            memory: 200Mi
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          value: "sqlserverkua3387.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userprofile-service
+  namespace: insurance-api
+spec:
+  selector:
+    app: userprofile
+  ports:
+  - protocol: TCP
+    port: 8084
+    targetPort: 80
+  type: LoadBalancer
