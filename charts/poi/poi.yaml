@@ -19,12 +19,12 @@ spec:
     image: registrykua3387.azurecr.io/poi
     volumeMounts:
     - name: secrets-store-poi
-      mountPath: "/secrets"
+      mountPath: "/mnt/secrets"
       readOnly: true
-    #args:
-    #  - --subscriptionid="34c68fe3-f615-4eb7-8925-4599d11b0aa6"
-    #  - --clientid="f2f5ebe3-80ef-44a9-a1d6-b2a7864c01e2"
-    #  - --resourcegroup="teamResources"
+    args:
+      - --subscriptionid="34c68fe3-f615-4eb7-8925-4599d11b0aa6"
+      - --clientid="f2f5ebe3-80ef-44a9-a1d6-b2a7864c01e2"
+      - --resourcegroup="teamResources"
     ports:
     - containerPort: 80
     env:
@@ -46,6 +46,8 @@ spec:
         value: "mydrivingDB"
       - name: ASPNETCORE_ENVIRONMENT
         value: "Local"
+      - name: CONFIG_FILES_PATH
+        value: "/mnt/secrets"
   nodeSelector:
     kubernetes.io/os: linux
 ---

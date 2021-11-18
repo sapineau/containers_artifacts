@@ -31,7 +31,9 @@ spec:
         - |
           objectName: SQL-USER
           objectType: secret             # object types: secret, key or cert
+          objectAlias: SQL_USER
         - |
           objectName: SQL-PASSWORD
           objectType: secret             # object types: secret, key or cert
+          objectAlias: SQL_PASSWORD
     tenantId: "bcc7953f-b0a7-4566-8c7f-8fa3840a3012"                # The tenant ID of the Azure Key Vault instance
