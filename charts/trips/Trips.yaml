@@ -5,6 +5,7 @@ metadata:
   namespace: insurance-api 
   labels:
     app: trips
+    aadpodidbinding: "vault-identity"
 spec:
   selector: 
     matchLabels: 
@@ -13,28 +14,34 @@ spec:
     metadata:
       labels: 
         app: trips
+        aadpodidbinding: "vault-identity"
     spec:
+      volumes:
+      - name: secrets-store-trips
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname-podid"
       containers:
       - name: trips
         image: registrykua3387.azurecr.io/trips
+        volumeMounts:
+        - name: secrets-store-trips
+          mountPath: "/mnt/secrets"
+          readOnly: true
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_USER
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_PASSWORD
         - name: SQL_SERVER
           value: "sqlserverkua3387.database.windows.net"
         - name: SQL_DBNAME
           value: "mydrivingDB"
+        - name: CONFIG_FILES_PATH
+          value: "/mnt/secrets"
+      nodeSelector:
+        kubernetes.io/os: linux
 
 ---
 apiVersion: v1
