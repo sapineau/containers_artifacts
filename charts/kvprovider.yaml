@@ -1,0 +1,20 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: azure-kvname-podid
+  namespace: insurance-api
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "true"               # Set to true for using aad-pod-identity to access keyvault
+    keyvaultName: "KeyVaultTeam6"        # Set to the name of your Azure Key Vault instance
+    cloudName: ""                        # [OPTIONAL for Azure] if not provided, azure environment will default to AzurePublicCloud
+    objects:  |
+      array:
+        - |
+          objectName: SQL-USER
+          objectType: secret             # object types: secret, key or cert
+        - |
+          objectName: SQL-PASSWORD
+          objectType: secret             # object types: secret, key or cert
+    tenantId: "bcc7953f-b0a7-4566-8c7f-8fa3840a3012"                # The tenant ID of the Azure Key Vault instance

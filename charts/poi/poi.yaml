@@ -14,23 +14,34 @@ spec:
       labels: 
         app: poi
     spec:
+      volumes:
+      - name: secrets-store01
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname-podid"
       containers:
       - name: poi
         image: registrykua3387.azurecr.io/poi
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: secrets-store01
+          mountPath: "/secrets"
+          readOnly: true
         ports:
         - containerPort: 80
         env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_USER
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_PASSWORD
+        #- name: SQL_USER
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: sql-secret
+        #      key: SQL_USER
+        #- name: SQL_PASSWORD
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: sql-secret
+        #      key: SQL_PASSWORD
         - name: SQL_SERVER
           value: "sqlserverkua3387.database.windows.net"
         - name: SQL_DBNAME
