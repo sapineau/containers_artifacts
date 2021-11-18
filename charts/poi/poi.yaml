@@ -21,25 +21,9 @@ spec:
     - name: secrets-store-poi
       mountPath: "/mnt/secrets"
       readOnly: true
-    args:
-      - --subscriptionid="34c68fe3-f615-4eb7-8925-4599d11b0aa6"
-      - --clientid="f2f5ebe3-80ef-44a9-a1d6-b2a7864c01e2"
-      - --resourcegroup="teamResources"
     ports:
     - containerPort: 80
     env:
-      - name: MY_POD_NAME
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.name
-      - name: MY_POD_NAMESPACE
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.namespace
-      - name: MY_POD_IP
-        valueFrom:
-          fieldRef:
-            fieldPath: status.podIP
       - name: SQL_SERVER
         value: "sqlserverkua3387.database.windows.net"
       - name: SQL_DBNAME
