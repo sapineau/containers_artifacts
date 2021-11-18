@@ -1,27 +1,22 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: api-dev-role
+  name: api-dev-role-insurance-api
   namespace: insurance-api
-#rules:
-#- apiGroups: ["", "extensions", "apps"]
-#  resources: ["*"]
-#  verbs: ["*"]
-#- apiGroups: ["batch"]
-#  resources:
-#  - jobs
-#  - cronjobs
-#  verbs: ["*"]
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: api-dev-role-binding
+  name: api-dev-role-binding-insurance-api
   namespace: insurance-api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: api-dev-role
+  name: api-dev-role-insurance-api
 subjects:
 - kind: Group
   namespace: insurance-api
@@ -30,27 +25,22 @@ subjects:
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: web-dev-role
+  name: web-dev-role-insurance-api
   namespace: insurance-api
-#rules:
-#- apiGroups: ["", "extensions", "apps"]
-#  resources: ["*"]
-#  verbs: ["*"]
-#- apiGroups: ["batch"]
-#  resources:
-#  - jobs
-#  - cronjobs
-#  verbs: ["*"]
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["get", "watch", "list"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: web-dev-role-binding
+  name: web-dev-role-binding-insurance-api
   namespace: insurance-api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: web-dev-role
+  name: web-dev-role-insurance-api
 subjects:
 - kind: Group
   namespace: insurance-api
