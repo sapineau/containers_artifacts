@@ -15,7 +15,7 @@ spec:
         app: poi
     spec:
       volumes:
-      - name: secrets-store01
+      - name: secrets-store-poi
         csi:
           driver: secrets-store.csi.k8s.io
           readOnly: true
@@ -26,7 +26,7 @@ spec:
         image: registrykua3387.azurecr.io/poi
         imagePullPolicy: IfNotPresent
         volumeMounts:
-        - name: secrets-store01
+        - name: secrets-store-poi
           mountPath: "/secrets"
           readOnly: true
         ports:
