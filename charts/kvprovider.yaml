@@ -1,3 +1,20 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+  name: azure-identity
+spec:
+  type: 0
+  resourceID: /subscriptions/34c68fe3-f615-4eb7-8925-4599d11b0aa6/resourceGroups/teamResources/providers/Microsoft.ManagedIdentity/userAssignedIdentities/vault-identity
+  clientID: "f2f5ebe3-80ef-44a9-a1d6-b2a7864c01e2"
+---
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+  name: azure-identity-binding
+spec:
+  azureIdentity: "azure-identity"
+  selector: "vault-identity"
+---
 apiVersion: secrets-store.csi.x-k8s.io/v1
 kind: SecretProviderClass
 metadata:
