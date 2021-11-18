@@ -5,6 +5,7 @@ metadata:
   namespace: insurance-api
   labels:
     app: user-java
+    aadpodidbinding: "vault-identity"
 spec:
   selector: 
     matchLabels: 
@@ -13,28 +14,32 @@ spec:
     metadata:
       labels: 
         app: user-java
+        aadpodidbinding: "vault-identity"
     spec:
+      volumes:
+      - name: secrets-store-user-java
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "azure-kvname-podid"
       containers:
       - name: user-java
         image: registrykua3387.azurecr.io/user-java
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: secrets-store-user-java
+          mountPath: "/secrets"
+          readOnly: true
         ports:
         - containerPort: 80
-        env:
-        - name: SQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_USER
-        - name: SQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: sql-secret
-              key: SQL_PASSWORD
+        env:        
         - name: SQL_SERVER
           value: "sqlserverkua3387.database.windows.net"
         - name: SQL_DBNAME
-          value: "mydrivingDB"
+          value: "mydrivingDB"        
+      nodeSelector:
+        kubernetes.io/os: linux
 ---
 apiVersion: v1
 kind: Service
